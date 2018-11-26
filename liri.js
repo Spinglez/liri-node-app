@@ -24,6 +24,8 @@ const spotify = new Spotify({
   secret: keys.parsed.SPOTIFY_SECRET
 });
 
+const omdb = 'http://www.omdbapi.com/?apikey='+keys.parsed.OMDB_KEY+'&t='
+
 switch (action) {
 case "spotify-this-song":
   spot();
@@ -41,8 +43,6 @@ case "do-what-it-says":
   doWhat();
   break;
 }
-
-console.log(arg);
 
 function spot(){
   if (arg == '') {
@@ -73,6 +73,33 @@ function spot(){
     }
   }
 
+function mov(){
+  if (arg == '') {
+    axios.get(omdb + "Mr. Nobody").then(
+      function(res){
+        console.log(res.data.Title);
+        console.log('Released: ' + res.data.Year);
+        console.log('imdb Rating: ' + res.data.imdbRating);
+        console.log('Rotten Tomatoes Rating: ' + res.data.Ratings[1].Value);
+        console.log('Country: ' + res.data.Country);
+        console.log('Languages: ' + res.data.Language);
+        console.log('Movie Plot: ' + res.data.Plot);
+        console.log('Actors: ' + res.data.Actors);
+      });
+  }else {
+    axios.get(omdb + arg).then(
+      function (res) {
+        console.log(res.data.Title);
+        console.log('Released: ' + res.data.Year);
+        console.log('imdb Rating: ' + res.data.imdbRating);
+        console.log('Rotten Tomatoes Rating: ' + res.data.Ratings[1].Value);
+        console.log('Country: ' + res.data.Country);
+        console.log('Languages: ' + res.data.Language);
+        console.log('Movie Plot: ' + res.data.Plot);
+        console.log('Actors: ' + res.data.Actors);
+    });
+  }
+}
 // axios.get(spot + 'creed' + keys.spotify).then(
 //   function(res){
 //     console.log(res);
