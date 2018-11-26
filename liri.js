@@ -4,19 +4,29 @@ const axios = require('axios');
 
 const Spotify = require('node-spotify-api');
 
-const keys = {
-  bandsIn: '',
-  spotify: '74e2eae01c884b0a8c54a31413bd5291',
-  secret: 'f792e2e5bd00450da06bf96b2e5bfbea',
-  omdb: '9199b32b',
+const fs = require('fs');
+
+// const keys = {
+//   bandsIn: '',
+//   omdb: '9199b32b',
+// }
+
+const dotenv = require('dotenv');
+
+const keys = dotenv.config()
+
+if (keys.error) {
+  throw result.error
 }
+
+console.log(keys.parsed.SPOTIFY_ID);
 
 const arg = process.argv.slice(2).join(" ");
 
 const spotify = new Spotify({
-  id: keys.spotify,
-  secret: keys.secret
-})
+  id: keys.parsed.SPOTIFY_ID,
+  secret: keys.parsed.SPOTIFY_SECRET
+});
 
 spotify
   .search({type: "track", query: arg, limit:5}, function(err, data){
