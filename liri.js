@@ -2,6 +2,8 @@
 
 const axios = require('axios');
 
+const moment = require('moment');
+
 const Spotify = require('node-spotify-api');
 
 const fs = require('fs');
@@ -14,8 +16,6 @@ if (keys.error) {
   throw result.error
 }
 
-// console.log(keys.parsed.SPOTIFY_ID);
-
 const action = process.argv[2];
 const arg = process.argv.slice(3).join(" ");
 
@@ -25,6 +25,8 @@ const spotify = new Spotify({
 });
 
 const omdb = 'http://www.omdbapi.com/?apikey='+keys.parsed.OMDB_KEY+'&t='
+
+const bandsIn = 'https://rest.bandsintown.com/artists/'+ arg +'/events?app_id='+keys.parsed.BANDSIN_KEY
 
 switch (action) {
 case "spotify-this-song":
@@ -41,6 +43,10 @@ case "movie-this":
 
 case "do-what-it-says":
   doWhat();
+  break;
+
+case 'help':
+  console.log('Please enter a command, the following commands are available:\n'+'spotify-this-song\n'+'concert-this\n'+'movie-this\n'+'do-what-it-says');
   break;
 }
 
@@ -97,6 +103,23 @@ function mov(){
         console.log('Languages: ' + res.data.Language);
         console.log('Movie Plot: ' + res.data.Plot);
         console.log('Actors: ' + res.data.Actors);
+    });
+  }
+}
+
+function conc(){
+  if (arg == '') {
+    console.log("Please enter an artist");
+  }else {
+    axios.get(bandsIn).then(
+      function(res) {
+        for (var i = 0; i < 5; i++) {
+          console.log(arg + ' at The:');
+          console.log(res.data[i].venue.name);
+          console.log(res.data[i].venue.city);
+          console.log(res.data[i].venue.country);
+          console.log(moment(res.data[i].datetime).format('MM-DD-YY') + '\n');
+        }
     });
   }
 }
