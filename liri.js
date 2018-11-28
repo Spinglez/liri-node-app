@@ -114,13 +114,17 @@ function conc(z){
     console.log("Please enter an artist");
   }else {
     axios.get(bandsIn = 'https://rest.bandsintown.com/artists/'+ z +'/events?app_id='+keys.parsed.BANDSIN_KEY).then(
-      function(res) {
-        for (var i = 0; i < 5; i++) {
-          console.log(z + ' at The:');
-          console.log(res.data[i].venue.name);
-          console.log(res.data[i].venue.city);
-          console.log(res.data[i].venue.country);
-          console.log(moment(res.data[i].datetime).format('MM-DD-YY') + '\n');
+      function(res,err) {
+        if (err) {
+          console.error(err);
+        }else{
+          for (var i = 0; i < 5; i++) {
+            console.log(z + ' at The:');
+            console.log(res.data[i].venue.name);
+            console.log(res.data[i].venue.city);
+            console.log(res.data[i].venue.country);
+            console.log(moment(res.data[i].datetime).format('MM-DD-YY') + '\n');
+          }
         }
     });
   }

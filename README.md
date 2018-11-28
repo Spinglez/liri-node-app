@@ -36,3 +36,13 @@ Use string replacing the third argument with whichever command you'd like to use
 *node liri.js movie-this Coco*
 
 See the screenshot below!:
+
+
+## Liri requires some packages!
+
+If you'd like to clone Liri remember to run npm install or else you're gonna have a bad time.
+
+Packages used: moment, axios, dotenv, and node-spotify-api
+I'd like to thank the devs for their work on each one as well.
+
+Since dotenv is present you  also have to provide your own .env file! Get your API keys!
