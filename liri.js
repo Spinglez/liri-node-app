@@ -26,8 +26,6 @@ const spotify = new Spotify({
 
 const omdb = 'http://www.omdbapi.com/?apikey='+keys.parsed.OMDB_KEY+'&t='
 
-const bandsIn = 'https://rest.bandsintown.com/artists/'+ arg +'/events?app_id='+keys.parsed.BANDSIN_KEY
-
 // console.log(arg);
 
 switch (action) {
@@ -53,7 +51,7 @@ case 'help':
 }
 
 function spot(x){
-  if (arg == '') {
+  if (x == '') {
     spotify.search({type: "track", query: 'Ace of Base The Sign', limit:1}, function(err, data){
       if (err) {
           return console.error(err);
@@ -81,8 +79,8 @@ function spot(x){
     }
   }
 
-function mov(z){
-  if (arg == '') {
+function mov(y){
+  if (y == '') {
     axios.get(omdb + "Mr. Nobody").then(
       function(res){
         console.log(res.data.Title);
@@ -92,10 +90,10 @@ function mov(z){
         console.log('Country: ' + res.data.Country);
         console.log('Languages: ' + res.data.Language);
         console.log('Movie Plot: ' + res.data.Plot);
-        console.log('Actors: ' + res.data.Actors);
+        console.log('Actors: ' + res.data.Actors +'\n');
       });
   }else {
-    axios.get(omdb + z).then(
+    axios.get(omdb + y).then(
       function (res) {
         console.log(res.data.Title);
         console.log('Released: ' + res.data.Year);
@@ -104,19 +102,21 @@ function mov(z){
         console.log('Country: ' + res.data.Country);
         console.log('Languages: ' + res.data.Language);
         console.log('Movie Plot: ' + res.data.Plot);
-        console.log('Actors: ' + res.data.Actors);
+        console.log('Actors: ' + res.data.Actors +'\n');
     });
   }
 }
 
-function conc(){
-  if (arg == '') {
+function conc(z){
+  let bandsIn;
+
+  if (z == '') {
     console.log("Please enter an artist");
   }else {
-    axios.get(bandsIn).then(
+    axios.get(bandsIn = 'https://rest.bandsintown.com/artists/'+ z +'/events?app_id='+keys.parsed.BANDSIN_KEY).then(
       function(res) {
         for (var i = 0; i < 5; i++) {
-          console.log(arg + ' at The:');
+          console.log(z + ' at The:');
           console.log(res.data[i].venue.name);
           console.log(res.data[i].venue.city);
           console.log(res.data[i].venue.country);
@@ -131,23 +131,24 @@ function doWhat(){
       if (err) {
         return console.error(err);
       }else {
-      console.log(data);
+      // console.log(data);
       let dataArr = data.split(',');
-      console.log(dataArr);
+      // console.log(dataArr);
 
-      for(let key in dataArr) {
-        console.log(key);
+      for (var i = 0; i < dataArr.length; i++) {
+        if (dataArr[i] == 'spotify-this-song') {
+          console.log(dataArr[i+1]);
+          spot(dataArr[i+1]);
+        }else if (dataArr[i] == 'movie-this') {
+          console.log(dataArr[i+1]);
+          mov(dataArr[i+1]);
+        }else if (dataArr[i] == 'concert-this') {
+          console.log(dataArr[i+1]);
+          conc(dataArr[i+1]);
+        }
       }
-      // for (var i = 0; i < dataArr.length; i++) {
-      //   if (dataArr[i] === 'spotify-this-song' || 'concert-this' || 'movie-this') {
-      //     dataArr.slice(dataArr[i]);
-      //     console.log(dataArr);
-          // argArray = dataArr[i];
-          // spot(argArray[0]);
-          // console.log(argArray);
-          // return argArray;
-      //   }
-      // }
     }
   });
 }
+
+ // 'concert-this' || 'movie-this'
