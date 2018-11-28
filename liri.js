@@ -28,17 +28,19 @@ const omdb = 'http://www.omdbapi.com/?apikey='+keys.parsed.OMDB_KEY+'&t='
 
 const bandsIn = 'https://rest.bandsintown.com/artists/'+ arg +'/events?app_id='+keys.parsed.BANDSIN_KEY
 
+// console.log(arg);
+
 switch (action) {
 case "spotify-this-song":
-  spot();
+  spot(arg);
   break;
 
 case "concert-this":
-  conc();
+  conc(arg);
   break;
 
 case "movie-this":
-  mov();
+  mov(arg);
   break;
 
 case "do-what-it-says":
@@ -50,7 +52,7 @@ case 'help':
   break;
 }
 
-function spot(){
+function spot(x){
   if (arg == '') {
     spotify.search({type: "track", query: 'Ace of Base The Sign', limit:1}, function(err, data){
       if (err) {
@@ -64,7 +66,7 @@ function spot(){
       }
     });
   }else {
-      spotify.search({type: "track", query: arg, limit:5}, function(err, data){
+      spotify.search({type: "track", query: x, limit:5}, function(err, data){
         if (err) {
             return console.error(err);
         }
@@ -79,7 +81,7 @@ function spot(){
     }
   }
 
-function mov(){
+function mov(z){
   if (arg == '') {
     axios.get(omdb + "Mr. Nobody").then(
       function(res){
@@ -93,7 +95,7 @@ function mov(){
         console.log('Actors: ' + res.data.Actors);
       });
   }else {
-    axios.get(omdb + arg).then(
+    axios.get(omdb + z).then(
       function (res) {
         console.log(res.data.Title);
         console.log('Released: ' + res.data.Year);
@@ -123,8 +125,29 @@ function conc(){
     });
   }
 }
-// axios.get(spot + 'creed' + keys.spotify).then(
-//   function(res){
-//     console.log(res);
-//   }
-// );
+
+function doWhat(){
+  fs.readFile('random.txt', 'utf8', function(err,data) {
+      if (err) {
+        return console.error(err);
+      }else {
+      console.log(data);
+      let dataArr = data.split(',');
+      console.log(dataArr);
+
+      for(let key in dataArr) {
+        console.log(key);
+      }
+      // for (var i = 0; i < dataArr.length; i++) {
+      //   if (dataArr[i] === 'spotify-this-song' || 'concert-this' || 'movie-this') {
+      //     dataArr.slice(dataArr[i]);
+      //     console.log(dataArr);
+          // argArray = dataArr[i];
+          // spot(argArray[0]);
+          // console.log(argArray);
+          // return argArray;
+      //   }
+      // }
+    }
+  });
+}
