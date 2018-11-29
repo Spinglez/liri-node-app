@@ -28,7 +28,7 @@ Use LIRI with a command line interface, there is a number  of commands you  can 
 
 help looks like this:
 
-![help screenshot](/screenshawts/help.jpg)
+![help screenshot](screenshawts/help.jpg)
 
 #### How should my string look?  
 **Format your query like so:** *node liri.js spotify-this-song This Love*
@@ -41,9 +41,9 @@ Use string replacing the third argument with whichever command you'd like to use
 
 See the screenshots below!:
 
-![spotify-this image](/screenshawts/spotifythis.jpg)
+![spotify-this image](screenshawts/spotifythis.jpg)
 
-![concert-this image](/screenshawts/concert-this.jpg)
+![concert-this image](screenshawts/concert-this.jpg)
 
 ## Liri requires some packages!
 
