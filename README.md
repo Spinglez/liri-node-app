@@ -53,3 +53,7 @@ Packages used: moment, axios, dotenv, and node-spotify-api
 I'd like to thank the devs for their work on each one as well.
 
 Since dotenv is present you  also have to provide your own .env file! Get your API keys!
+
+## Still need some help? Check out this video link below:
+
+[Demo!](https://showmore.com/u/nwy7x3f)
