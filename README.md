@@ -26,6 +26,10 @@ Use LIRI with a command line interface, there is a number  of commands you  can 
 **help**
 *Returns all available commands for Liri! Use this if you forget what Liri can do*
 
+help looks like this:
+
+![help screenshot](/screenshawts/help.jpg)
+
 #### How should my string look?  
 **Format your query like so:** *node liri.js spotify-this-song This Love*
 
@@ -35,8 +39,11 @@ Use string replacing the third argument with whichever command you'd like to use
 
 *node liri.js movie-this Coco*
 
-See the screenshot below!:
+See the screenshots below!:
 
+![spotify-this image](/screenshawts/spotifythis.jpg)
+
+![concert-this image](/screenshawts/concert-this.jpg)
 
 ## Liri requires some packages!
 
