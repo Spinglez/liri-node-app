@@ -141,13 +141,13 @@ function doWhat(){
 
       for (var i = 0; i < dataArr.length; i++) {
         if (dataArr[i] == 'spotify-this-song') {
-          console.log(dataArr[i+1]);
+          // console.log(dataArr[i+1]);
           spot(dataArr[i+1]);
         }else if (dataArr[i] == 'movie-this') {
-          console.log(dataArr[i+1]);
+          // console.log(dataArr[i+1]);
           mov(dataArr[i+1]);
         }else if (dataArr[i] == 'concert-this') {
-          console.log(dataArr[i+1]);
+          // console.log(dataArr[i+1]);
           conc(dataArr[i+1]);
         }
       }
